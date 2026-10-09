@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+
+  --color-sky-soft: #8AC7EA;
+  --color-sky-light: #BFE3F7;
+  --color-meadow-grass: #48B066;
+  --color-meadow-dark: #2F7C48;
+  --color-hill-distant: #68A684;
+  --color-wood-base: #8B5E3C;
+  --color-wood-dark: #583922;
+  --color-wood-border: #2E1B10;
+  --color-sun-amber: #FFB703;
+  --color-sun-orange: #FB8500;
+  --color-nature-cream: #FFFDF8;
+  --color-nature-card: #F9F5EC;
+  --color-stream-blue: #4EA8DE;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #8AC7EA;
+  color: #2D2319;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Wood Board & Storybook Nature Block UI */
+.wood-board {
+  background-color: #FAF6ED;
+  border: 3.5px solid #2E1B10;
+  box-shadow: 0 6px 0 #2E1B10, 0 12px 25px rgba(27, 43, 30, 0.25);
+  border-radius: 1.5rem;
+}
+
+.wood-board-dark {
+  background-color: #2D4A37;
+  border: 3.5px solid #1C2E22;
+  box-shadow: 0 6px 0 #1C2E22, 0 12px 25px rgba(0, 0, 0, 0.35);
+  border-radius: 1.5rem;
+  color: #FFFDF8;
+}
+
+.wood-btn-primary {
+  background: linear-gradient(180deg, #56C275 0%, #3CA559 100%);
+  color: #FFFFFF;
+  border: 3px solid #1C4425;
+  box-shadow: 0 5px 0 #1C4425, 0 8px 15px rgba(28, 68, 37, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 1.25rem;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wood-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #1C4425, 0 12px 20px rgba(28, 68, 37, 0.35);
+  background: linear-gradient(180deg, #64CF83 0%, #44B263 100%);
+}
+
+.wood-btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #1C4425;
+}
+
+.wood-btn-amber {
+  background: linear-gradient(180deg, #FFC436 0%, #F49D1A 100%);
+  color: #2E1B10;
+  border: 3px solid #3D220E;
+  box-shadow: 0 5px 0 #3D220E, 0 8px 15px rgba(61, 34, 14, 0.25);
+  border-radius: 1.25rem;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wood-btn-amber:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #3D220E, 0 12px 20px rgba(61, 34, 14, 0.35);
+  background: linear-gradient(180deg, #FFD25A 0%, #FFA927 100%);
+}
+
+.wood-btn-amber:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #3D220E;
+}
+
+.wood-btn-secondary {
+  background-color: #F0E8D7;
+  color: #3D2617;
+  border: 2.5px solid #2E1B10;
+  box-shadow: 0 3px 0 #2E1B10;
+  border-radius: 1rem;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wood-btn-secondary:hover {
+  background-color: #FFFDF8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 #2E1B10;
+}
+
+.wood-btn-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #2E1B10;
+}
+
+/* Animations for Cozy Cartoon World */
+@keyframes butterflyFlight1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(5deg);
+  }
+  25% {
+    transform: translate3d(60px, -40px, 0) rotate(18deg);
+  }
+  50% {
+    transform: translate3d(140px, -15px, 0) rotate(-10deg);
+  }
+  75% {
+    transform: translate3d(80px, 35px, 0) rotate(-15deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(5deg);
+  }
+}
+
+@keyframes butterflyFlight2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+  }
+  30% {
+    transform: translate3d(-70px, -35px, 0) rotate(15deg);
+  }
+  60% {
+    transform: translate3d(-120px, 20px, 0) rotate(-5deg);
+  }
+  85% {
+    transform: translate3d(-40px, 45px, 0) rotate(10deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+  }
+}
+
+@keyframes wingFlap {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.2);
+  }
+}
+
+@keyframes cloudCruise1 {
+  0% {
+    transform: translateX(-160px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 160px));
+  }
+}
+
+@keyframes cloudCruise2 {
+  0% {
+    transform: translateX(-220px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 220px));
+  }
+}
+
+@keyframes gentleSway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes waterRipples {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 36;
+  }
+}
+
+@keyframes sunPulseGlow {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 25px rgba(255, 183, 3, 0.45));
+  }
+  50% {
+    transform: scale(1.04) rotate(90deg);
+    filter: drop-shadow(0 0 45px rgba(255, 183, 3, 0.7));
+  }
+}
+
+@keyframes pollenRise {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(25px, -80px, 0);
+    opacity: 0;
+  }
+}
+
+.animate-butterfly-1 {
+  animation: butterflyFlight1 16s ease-in-out infinite;
+}
+
+.animate-butterfly-2 {
+  animation: butterflyFlight2 19s ease-in-out infinite;
+}
+
+.animate-wing-flap {
+  transform-origin: center;
+  animation: wingFlap 0.28s ease-in-out infinite;
+}
+
+.animate-cloud-puffy-1 {
+  animation: cloudCruise1 65s linear infinite;
+}
+
+.animate-cloud-puffy-2 {
+  animation: cloudCruise2 85s linear infinite;
+}
+
+.animate-sway-slow {
+  transform-origin: bottom center;
+  animation: gentleSway 5s ease-in-out infinite;
+}
+
+.animate-sun-cartoon {
+  animation: sunPulseGlow 24s ease-in-out infinite;
+}
+
+.animate-water-stream {
+  stroke-dasharray: 8 10;
+  animation: waterRipples 2s linear infinite;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-butterfly-1,
+  .animate-butterfly-2,
+  .animate-cloud-puffy-1,
+  .animate-cloud-puffy-2,
+  .animate-sway-slow,
+  .animate-sun-cartoon,
+  .animate-water-stream {
+    animation: none !important;
+  }
+}
+
+/* Print Cleanliness */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #1A1A1A !important;
+  }
+  [aria-hidden="true"],
+  button,
+  footer {
+    display: none !important;
+  }
+  .wood-board,
+  .wood-board-dark {
+    box-shadow: none !important;
+    border: 1.5px solid #222222 !important;
+    background: #FFFFFF !important;
+    color: #1A1A1A !important;
+  }
+}
