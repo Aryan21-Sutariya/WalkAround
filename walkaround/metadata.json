@@ -1,6 +1,0 @@
-{
-  "name": "WalkAround",
-  "description": "Notice what you normally walk past. A charming, whimsical block-style cartoon nature world for mindful outdoor walks.",
-  "requestFramePermissions": ["camera"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

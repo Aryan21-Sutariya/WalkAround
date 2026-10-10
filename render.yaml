@@ -1,0 +1,37 @@
+services:
+  # WalkAround FastAPI Backend Web Service
+  - type: web
+    name: walkaround-backend
+    env: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: DEMO_MODE
+        value: "true"
+      - key: ALLOWED_ORIGINS
+        value: "*"
+
+  # WalkAround React / Vite Static Site
+  - type: web
+    name: walkaround-frontend
+    env: static
+    region: oregon
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: walkaround-backend
+          property: host
