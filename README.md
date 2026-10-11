@@ -1,116 +1,257 @@
-# WalkAround 🌿
+# 🌿 WalkAround — Touch Grass, One Discovery at a Time
 
-> *A paper-cut nature journal encouraging mindful outdoor exploration, powered by local open-weight Google Gemma AI and instant cloud demo modes.*<br />
-> Built for the **Hacktoberfest 2026 Week 1 "Touch Grass"** Challenge.
+> **Put your phone away. Look closer. Discover the nature around you.**
 
----
+WalkAround is an AI-powered nature journaling application that encourages mindful outdoor exploration. Capture interesting plants, fungi, and wildlife, learn about your surroundings using locally running Google Gemma vision AI, and preserve your discoveries in a personal field journal.
 
-## 🧭 Overview
+Built for the **Hacktoberfest 2026 — Week 1 “Touch Grass” Challenge**.
 
-**WalkAround** inverts typical smartphone habits:
-1. **Phone Away**: When you begin a walk, WalkAround encourages you to look around you, listen to the wind, and keep your phone in your pocket.
-2. **On-Demand Capture**: When you spot an interesting botanical or wildlife specimen, you can capture a photo with your camera, upload an image from your device, or explore curated specimens.
-3. **Open-Weight Gemma AI & Fast Demo**: Analyzes specimens using Google's open-weight Gemma 4 vision model locally, or instantly serves authentic curated specimens in Demo Mode (<50ms).
-4. **Field Journal & Summary**: Records your walk route, noticed specimens, and generates a downloadable PDF Field Journal.
-
----
-
-## 🚀 Two Running Modes
-
-### 1. Fast Public Demo Mode (Recommended for Render & Web Previews)
-- Set `DEMO_MODE=true` in `backend/.env` or as an environment variable.
-- Responds in **< 50 milliseconds** using authentic curated nature observations (Wood Fern, Turkey Tail Fungus, Honey Bee, Oak Lichen).
-- Does **not** require Ollama or local GPU hardware.
-- Transparently labels observations with a prominent **Demo Mode — Sample Observations** badge.
-
-### 2. Local Google Gemma AI Mode
-- Requires [Ollama](https://ollama.com) running locally with `gemma4:e2b`.
-- Uses Pillow proportional image preprocessing (Lanczos downscaled to 512px, JPEG quality 80) to optimize inference speed.
-- Automatically falls back to offering Demo Mode if local inference exceeds 25 seconds.
+<p align="center">
+  <a href="https://walkaround-frontend.onrender.com"><strong>🌐 Try the Live Demo</strong></a>
+  &nbsp; • &nbsp;
+  <a href="https://github.com/Aryan21-Sutariya/WalkAround"><strong>💻 Source Code</strong></a>
+</p>
 
 ---
 
-## 💻 Local Setup & Development
+## 🌱 The Idea
 
-### 1. AI Backend (FastAPI)
+Smartphones often distract us from the world immediately around us. Even when we go outside, we may spend more time looking at a screen than observing nature.
+
+**WalkAround flips that experience around.**
+
+Instead of endlessly scrolling, users step outside, notice something interesting, capture it when needed, and build a journal of their discoveries.
+
+The goal is simple: use AI as a tool to encourage real-world curiosity, not as another reason to stay glued to a screen.
+
+## ✨ Features
+
+- **📸 Capture & Upload:** Take a photo of a plant, fungus, or animal using your camera, or upload an existing image.
+- **🧠 Local Gemma Vision AI:** Analyze specimen images using Google's open-weight Gemma model through Ollama on your own machine.
+- **⚡ Instant Demo Mode:** Explore curated nature observations on the hosted demo without waiting for local model inference.
+- **📖 Digital Field Journal:** Save observations and revisit your nature discoveries.
+- **🗺️ Map Your Discoveries:** View observation markers and explore where discoveries were recorded.
+- **🥾 Walk Summary:** Review your observations and compile a summary of your walk.
+- **📄 Downloadable Field Journal:** Generate a printable field journal or save it as a PDF through your browser's print dialog.
+- **🎨 Nature-Inspired Interface:** A warm, paper-cut visual design inspired by illustrated field journals and the outdoors.
+
+## 🚀 Try WalkAround
+
+**Live application:** https://walkaround-frontend.onrender.com
+
+The hosted version uses Demo Mode so that visitors can explore the experience without installing an AI model.
+
+Sample observations include:
+
+| Specimen | Scientific name |
+|---|---|
+| Wood Fern | *Dryopteris carthusiana* |
+| Turkey Tail Fungus | *Trametes versicolor* |
+| Honey Bee on Clover | *Apis mellifera* |
+| Oak Lichen | Curated lichen observation |
+
+**Important:** Demo Mode displays curated sample observations. It does not claim to identify or analyze the visitor's uploaded image. For image-based AI inference, run WalkAround locally with Gemma and Ollama.
+
+## 🧠 Two Ways to Explore
+
+### 1. Local AI Mode — Powered by Gemma
+
+Run WalkAround on your computer to use a locally hosted vision model.
+
+- Uses Google's open-weight Gemma model through Ollama.
+- Processes images locally for model inference.
+- Does not require a paid cloud AI API for the local inference workflow.
+- Uses image resizing and JPEG compression to reduce the amount of data sent to the model.
+
+**Requirements:** Python, Node.js, Ollama, and the configured `gemma4:e2b` model.
+
+Local inference speed depends on your hardware. CPU-only systems may take considerably longer than systems with suitable acceleration.
+
+### 2. Public Demo Mode — Powered by Render
+
+The hosted application uses a FastAPI backend configured with `DEMO_MODE=true`.
+
+- No Ollama installation is required for visitors.
+- Curated observations appear without waiting for local model inference.
+- The frontend and backend are deployed as separate Render services.
+- Demo observations are explicitly presented as samples.
+
+This separation makes the project easy to try while keeping the local AI workflow available for users who want to experiment with image analysis.
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[User] --> B[React + Vite Frontend]
+    B --> C[FastAPI Backend]
+    C --> D{Execution Mode}
+    D -->|Demo Mode| E[Curated Sample Observations]
+    D -->|Local AI Mode| F[Ollama + Gemma Vision Model]
+    E --> G[Observation Cards]
+    F --> G
+    G --> H[Field Journal]
+    G --> I[Map and Walk Summary]
+    H --> J[Printable / PDF Journal]
+```
+
+### Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React, JavaScript, Vite |
+| Backend | Python, FastAPI |
+| Vision AI | Google Gemma via Ollama |
+| Image processing | Pillow |
+| Hosting | Render Web Service and Static Site |
+| Development | Git and GitHub |
+
+## 🛠️ Run Locally
+
+### Prerequisites
+
+Install Python, Node.js/npm, and [Ollama](https://ollama.com/).
+
+### 1. Clone the repository
 
 ```bash
-# Navigate to backend
+git clone https://github.com/Aryan21-Sutariya/WalkAround.git
+cd WalkAround
+```
+
+### 2. Start the backend
+
+Create and activate a virtual environment.
+
+**Windows PowerShell:**
+
+```powershell
 cd backend
-
-# Create & activate virtual environment
 python -m venv venv
-# Windows:
 .\venv\Scripts\Activate.ps1
-# Linux/macOS:
-source venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
+```
 
-# Start backend server
+**macOS/Linux:**
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Start the API:
+
+```bash
 uvicorn main:app --reload --port 8000
 ```
 
-*Backend runs at `http://127.0.0.1:8000`. Health check available at `http://127.0.0.1:8000/api/health`.*
+Backend health check: http://127.0.0.1:8000/api/health
 
-### 2. Frontend UI (React + Vite)
+### 3. Configure local AI mode
+
+In another terminal, ensure Ollama is running and pull the configured model:
 
 ```bash
-# In a separate terminal, navigate to frontend
+ollama pull gemma4:e2b
+```
+
+Set `DEMO_MODE=false` in the backend environment configuration used by your project, then restart the backend.
+
+If the model is unavailable or inference is slow, check the backend logs and your local Ollama setup.
+
+### 4. Start the frontend
+
+Open a new terminal:
+
+```bash
 cd frontend
-
-# Install Node dependencies
 npm install
-
-# Start development server
 npm run dev
 ```
 
-*Frontend runs at `http://localhost:3000` (or `http://localhost:5173`).*
+Open the local URL printed by Vite, typically http://localhost:5173.
 
----
+**For a quick UI walkthrough:** use the backend's Demo Mode instead of local model inference.
 
-## ☁️ Render Deployment (One-Click Blueprint)
+## ☁️ Deployment with Render
 
-WalkAround includes a pre-configured `render.yaml` Blueprint for deploying both services to Render's free tier.
+The repository includes a root-level `render.yaml` Blueprint for deploying both application services.
 
-### Option A: Using Render Blueprint (Recommended)
-1. Push your repository to GitHub.
-2. Go to the [Render Dashboard](https://dashboard.render.com/) and click **New +** > **Blueprint**.
-3. Select your `WalkAround` repository.
-4. Render will automatically configure:
-   - **`walkaround-backend`**: Python Web Service running on `$PORT` with `DEMO_MODE=true`.
-   - **`walkaround-frontend`**: Static Site publishing `frontend/dist` with `VITE_API_URL` pointing to the backend.
+1. Push the repository to GitHub.
+2. Open the [Render Dashboard](https://dashboard.render.com/).
+3. Choose **New + → Blueprint**.
+4. Select `Aryan21-Sutariya/WalkAround` and the `main` branch.
+5. Use the root-level `render.yaml` configuration.
+6. Deploy the Blueprint and wait for both services to become healthy.
 
-### Option B: Manual Render Setup
-- **Backend Service**:
-  - Runtime: Python 3
-  - Build Command: `pip install -r backend/requirements.txt`
-  - Start Command: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
-  - Environment Variables: `DEMO_MODE=true`, `ALLOWED_ORIGINS=*`
-- **Frontend Static Site**:
-  - Build Command: `cd frontend && npm install && npm run build`
-  - Publish Directory: `frontend/dist`
-  - Environment Variables: `VITE_API_URL=https://<your-backend-name>.onrender.com`
+The Blueprint configures:
 
----
+- **`walkaround-backend`** — Python web service running FastAPI with `DEMO_MODE=true`.
+- **`walkaround-frontend`** — Static site built from the React/Vite application.
 
-## 🧪 Verification & Testing
+The frontend's `VITE_API_URL` references the backend service. Because Vite environment variables are embedded during the build, changes to this variable require a new frontend build/deployment.
 
-- **Backend Test Suite**:
-  ```bash
-  python backend/test_api.py
-  ```
-  *Tests health endpoints, sample observations, demo queries, and image validation.*
+The live deployment is available at https://walkaround-frontend.onrender.com.
 
-- **Frontend Production Build**:
-  ```bash
-  cd frontend && npm run build
-  ```
-  *Verifies that the entire application bundles with zero syntax or typescript errors.*
+*Free-tier services may sleep when idle and take time to wake up. Availability and resource limits are controlled by Render.*
 
----
+## 🧪 Testing
+
+### Backend
+
+From the repository root, activate the backend virtual environment and run:
+
+```bash
+python backend/test_api.py
+```
+
+This test script is intended to check the backend API and its supported validation and demo workflows.
+
+### Frontend production build
+
+```bash
+cd frontend
+npm run build
+```
+
+This verifies that the frontend can be compiled for production.
+
+Run both checks after making changes to help catch regressions before pushing to GitHub.
+
+## 🔒 Privacy, Transparency & Limitations
+
+- **Local inference:** Image-based inference runs through the locally configured Ollama model.
+- **Demo transparency:** Curated sample observations are not represented as results from analyzing the visitor's uploaded image.
+- **AI limitations:** Model-generated species descriptions and identifications can be inaccurate. Treat them as exploratory suggestions, not verified scientific identification.
+- **Performance:** Local inference speed varies by hardware.
+- **Location data:** Map functionality depends on the application's configured location and observation data. Do not assume precise GPS tracking unless it is explicitly enabled and verified.
+- **Hosted mode:** The public demo prioritizes accessibility and responsiveness over live image inference.
+
+## 💡 Open Innovation
+
+WalkAround combines an open-weight vision model with a lightweight web application to make AI-assisted nature exploration more accessible.
+
+The project explores a practical alternative to cloud-only AI inference: let users experiment with a locally running model while providing a fast, clearly labeled hosted demo for everyone else.
+
+Its broader idea is that technology can encourage people to step away from their screens, observe their surroundings, and build a stronger connection with the natural world.
+
+## 🗺️ Roadmap
+
+Potential future improvements include:
+
+- More robust species identification and confidence communication.
+- Better handling of uncertain or ambiguous observations.
+- Improved walk history and journal organization.
+- Additional offline-friendly features.
+- More accessible nature education and observation workflows.
 
 ## 📜 License
-MIT License. Created for Hacktoberfest 2026.
+
+This project is released under the MIT License. See [`LICENSE`](LICENSE) for details.
+
+---
+
+**Take a walk. Notice something small. Let curiosity lead the way. 🌿**
+
+Built with curiosity for Hacktoberfest 2026.
