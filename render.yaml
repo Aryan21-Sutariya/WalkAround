@@ -2,7 +2,7 @@ services:
   # WalkAround FastAPI Backend Web Service
   - type: web
     name: walkaround-backend
-    env: python
+    runtime: python
     region: oregon
     plan: free
     rootDir: backend
@@ -19,8 +19,7 @@ services:
   # WalkAround React / Vite Static Site
   - type: web
     name: walkaround-frontend
-    env: static
-    plan: free
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
